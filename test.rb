@@ -375,12 +375,10 @@ class DefaultValuePluginTest < Test::Unit::TestCase
     end
 
     object = TestClass.new
-    assert(!object.changed?)
-    assert_equal([], object.changed)
-
-    object.type = "foo"
     assert(object.changed?)
-    assert_equal(["type"], object.changed)
+    assert(object.save)
+    object.reload
+    assert_equal(5, object.count)
   end
 
   def test_default_values_are_duplicated
